@@ -1,0 +1,528 @@
+@use "global" as *;
+@use "shared" as *;
+@use "monokai";
+
+body {
+background-image: url("circuit.png");
+}
+
+body > header {
+    h1 {
+    width: min-content;
+    margin: 0;
+    font-family: $font-family-code;
+    font-size: clamp(1em, 8vw, 2em);
+    text-shadow: none;
+        a {
+        display: block;
+        padding-top: 2px;
+        background: linear-gradient(75deg, $orange 0 90%, $white 95%, $orange 100%);
+        background-position: 0%;
+        background-size: 200%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        }
+            a:hover, a:focus {
+            animation: swish 3s infinite linear;
+            }
+                @keyframes swish {
+                30% { background-position: -150%; }
+                100% { background-position: -150%; }
+                }
+            a:active {
+            color: lighten($orange, 10%);
+            }
+    }
+    h2 {
+    margin: 0;
+    margin-left: auto;
+    }
+} // body > header
+
+main > nav {
+contain: layout;
+position: sticky;
+float: left;
+top: 0;
+width: $nav-width;
+    > button {
+    display: none;
+    }
+    > div {
+    min-height: 100vh;
+    margin: 0;
+    padding: .5em;
+    padding-top: 1em;
+    border-left: 1px solid $colour-edges;
+    background-color: $colour-bg-alt;
+        ul {
+        margin-top: 0;
+        padding: 0;
+        list-style-type: none;
+        }
+            ul ul {
+            padding-left: .7em;
+            }
+                ul ul ul {
+                padding-left: 1.2em;
+                }
+        ul li {
+        margin: 0;
+        padding: 0;
+        }
+            ul li > ul {
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transition: max-height .5s ease-out 1s, opacity 1s 1s;
+            }
+                ul li:hover > ul, ul li:focus-within > ul, ul li:is(.current, .parent) > ul, ul li > ul:hover {
+                max-height: 300px;
+                opacity: 1;
+                transition: opacity 1s 1s, max-height .5s ease-in 1s;
+                }
+            li a {
+            display: block;
+            overflow: hidden;
+            outline-offset: -2px !important;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            }
+                li.current > div a, li a:hover, li a:focus {
+                color: $colour-text;
+                }
+                li a svg {
+                margin-left: .1em;
+                margin-right: .2em;
+                fill: currentColor;
+                vertical-align: text-bottom;
+                //shape-rendering: crispEdges;
+                }
+            ul li div {
+            height: 1.8em;
+            line-height: 1.8em;
+            }
+                li div > svg {
+                float: left;
+                width: auto;
+                height: 100%;
+                fill: $darker;
+                //shape-rendering: crispEdges;
+                }
+
+        a.button {
+        float: left;
+        }
+    } // div
+} // main > nav
+
+article {
+display: flow-root;
+overflow: hidden;
+min-height: 100vh;
+margin-left: $nav-width;
+padding: 0 1em 1.5em 1em;
+border-right: 1px solid $colour-edges;
+border-left: 1px solid $colour-edges;
+}
+    article > header {
+    display: flex;
+    overflow: hidden;
+    max-height: 15em;
+    max-width: 100%;
+    height: 15vw;
+    min-height: 7.5em;
+    margin: 0 -1em 1em -1em;
+    padding: 1em;
+    background-color: $colour-bg-alt;
+    background-position: 50% 10%;
+    background-size: cover;
+        > div {
+        align-self: end;
+        }
+        h1, h2 {
+        float: left;
+        clear: left;
+        padding: .2em;
+        background-color: $shadow-colour;
+        }
+            h1 {
+            margin: 0;
+            }
+            h2 a {
+            display: block;
+            }
+    } // article > header
+
+    article section {
+    clear: left;
+    margin-bottom: 1em;
+    }
+    article section.abstract {
+    font-weight: bolder;
+    }
+	article p img {
+	float: left;
+	clear: left;
+	width: 12em;
+	margin-right: .5em;
+	}
+    article sup, article sub {
+    display: inline-block;
+    }
+        article sup {
+        margin-top: -.4em;
+        }
+        article sub {
+        margin-bottom: -.4em;
+        }
+	article form {
+	max-width: 20em;
+	}
+    article p.author {
+    margin-bottom: .2em;
+    }
+	article p.date {
+    display: inline-block;
+	font-size: .8em;
+	}
+
+article > h2, section > h2, article > h3, section > h3 {
+clear: left;
+margin-top: 1em;
+padding-bottom: .2em;
+border-bottom: 1px dotted $colour-text;
+}
+
+article section.child_pages {
+    // TODO: crop banner
+    nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9em, 1fr));
+    grid-column-gap: 1em;
+    }
+        nav a {
+        display: block;
+        max-width: 15em;
+        margin-bottom: 3px; //focus-visible outline
+        }
+            nav a img {
+            width: 100%;
+            background-color: $colour-bg-alt;
+            }
+            nav a p {
+            // TODO: line-clamp for linked sub-pages abstract
+            margin: 0;
+            }
+} // article section.child_pages
+
+article section.sections {
+    
+}
+
+article section section {
+    // TODO: crop banner 
+    padding-top: 1em;
+    header {
+    margin-bottom: .5em;
+    padding: 0;
+    background-color: $colour-bg-alt;
+    background-position: 50% 10%;
+    background-size: cover;
+    }
+    header h2 {
+    float: left;
+    margin-bottom: 1em;
+    font-weight: bold;
+    background-color: $shadow-colour;
+    }
+    header h2 a {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: .5rem;
+    }
+    header p {
+    clear: left;
+    margin: 0;
+    padding: .5rem;
+    background-color: $shadow-colour;
+    }
+} // article section section
+
+article section.gallery {
+margin: 2em 0;
+    nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9em, 1fr));
+    grid-column-gap: 1em;
+    grid-row-gap: 1em;
+    }
+        figure {
+        max-width: 240px;
+        }
+            figure figcaption {
+            display: block;
+            margin-top: .2em;
+            font-size: .8em;
+            }
+} // article section.gallery
+
+article section.github_repo {
+    img.avatar {
+    float: left;
+    width: 4em;
+    height: 4em;
+    margin-right: .5em;
+    border-top-left-radius: .6em;
+    }
+    header {
+    overflow: hidden;
+    margin-bottom: .5em;
+    }
+        header svg {
+        float: right;
+        width: 1em;
+        height: 1em;
+        }
+    h2 {
+    margin-bottom: .2em;
+    font-size: 1.2em;
+    }
+    h3 {
+    margin-bottom: .2em;
+    font-size: 1em;
+    }
+        p.meta {
+        margin-bottom: 0;
+        padding-top: .2em;
+        border-top: 1px solid $gray;
+        font-size: .8em;
+        }
+            p.meta span {
+            margin-right: .5em;
+            }
+    p.date {
+    margin: 0;
+    }
+    svg {
+    width: 1em;
+    height: 1em;
+    fill: $colour-text;
+    vertical-align: text-top;
+    }
+        .git.lang.ruby svg {
+        fill: $git-lang-ruby;
+        }
+        .git.lang.python svg {
+        fill: $git-lang-python;
+        }
+        .git.lang.c svg {
+        fill: $git-lang-c;
+        }
+        .git.lang.html svg {
+        fill: $git-lang-html;
+        }
+        .git.lang.javascript svg {
+        fill: $git-lang-javascript;
+        }
+        .git.lang.css svg {
+        fill: $git-lang-css;
+        }
+        .git.lang.scss svg {
+        fill: $git-lang-scss;
+        }
+} // article section.githubrepo
+
+article section.comments {
+    h3 {
+    margin-top: 0;
+    }
+    h4 {
+    margin: 0;
+    margin-bottom: .2em;
+    font-size: .8em;
+    font-weight: normal;
+    }
+} //article section.comments
+
+ol#markdown-toc ol {
+list-style-type: upper-roman;
+}
+    ol#markdown-toc li {
+    padding: .2em 0;
+    font-style: oblique;
+    }
+
+pre.highlight, section.github_repo, section.comments section {
+padding: .5em;
+border-radius: 1em;
+background-color: $colour-bg-alt;
+}
+
+pre.highlight {
+clear: left;
+overflow: auto;
+overflow-x: scroll;
+font-family: $font-family-code;
+}
+    pre pre {
+    display: table-cell;
+    }
+    pre.lineno {
+    color: $colour-code-line;
+    }
+
+p code {
+margin: -1px;
+padding: .2em .3em .1em .3em;
+border-radius: .3em;
+background-color: $colour-inline-code-bg;
+font-family: $font-family-code;
+font-size: .8em;
+color: $colour-inline-code;
+}
+
+article > table {
+border-spacing: 0;
+border-collapse: collapse;
+margin-bottom: 1em;
+border: 1px solid $gray;
+font-size: .8em;
+    th {
+    }
+    tr {
+    border-bottom: 1px solid $gray;
+    }
+    tr:nth-child(2n) {
+    background-color: lighten($colour-bg, 5%);
+    }
+    td {
+    padding: .2em .5em;
+    }
+
+} // article > table
+
+article > figure {
+float: left;
+margin-top: .2em;
+margin-right: .5em;
+margin-bottom: .3em;
+}
+    article > figure.lscp button img, article > figure.square button img {
+    width: 240px;
+    }
+    article > figure.port button img {
+    height: 240px;
+    }
+    article > figure figcaption {
+    font-size: .8em;
+    text-align: center;
+    }
+
+figure {
+margin: 0;
+    button {
+    width: 100%;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    cursor: zoom-in;
+    }
+        button img {
+        display: block;
+        width: 100%;
+        background-image: url("noise.gif");
+        }
+
+        button + div.zoom {
+        display: none; // must be display:none to prevent loading of lazy images within
+        align-items: center;
+        overflow: hidden;
+        width: 0;
+        height: 0;
+        background-color: $modal-bg-colour;
+        opacity: 0;
+        transition: opacity .25s;
+        backdrop-filter: blur(5px);
+        }
+            // use keyframes to provide time for repaint after unhiding div.zoom
+            @keyframes zoom {
+                from {transform: scale(.01);}
+                1% {transform: scale(.01);}
+                99% {transform: scale(1);}
+                to {transform: scale(1);}
+            }
+
+            button + div.zoom img {
+            object-fit: contain;
+            height: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            animation-name: zoom;
+            animation-duration: .25s;
+            }
+                button:focus + div.zoom {
+                // TODO: enable zooming by keypress (requires JS)
+                // also close with Esc
+                contain: strict;
+                display: flex;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 1;
+                z-index: 2;
+                }
+                    button:focus + div.zoom img {
+                    transform: scale(1);
+                    }
+} // figure
+
+p.buttons {
+display: flex;
+column-gap: 1em;
+} // p.split
+
+body > footer {
+clear: left;
+height: 8em;
+padding: .5em;
+border-top: 1px solid $colour-edges;
+background-color: $colour-footer;
+}
+    body > footer p {
+    width: fit-content;
+    margin: 0 auto;
+    }
+    body > footer img.icon {
+    width: 1em;
+    height: 1em;
+    margin-right: .2em;
+    vertical-align: middle;
+    }
+
+address ul {
+list-style-type: none;
+}
+
+body.users {
+    article h1 {
+    padding-top: 1em;
+    }
+
+} // devise pages
+
+body.errors {
+    article > h1 {
+    margin-top: 1em;
+    }
+    article > img {
+        width: 100%;
+    }
+}
+
+@import "media";
