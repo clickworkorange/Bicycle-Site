@@ -1,5 +1,5 @@
 name: "elmbranching"
 title: "Elmbranching"
-root: "elmbranching"
+root: "/sites/elmbranching"
 # Note that the thin config .yml file needs to have the same name 
 # as the site directory; it is used to find the correct master.key.
