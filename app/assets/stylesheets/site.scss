@@ -135,7 +135,7 @@ border-left: 1px solid $colour-edges;
     min-height: 7.5em;
     margin: 0 -1em 1em -1em;
     padding: 1em;
-    background-color: $colour-bg-alt;
+    background-color: $colour-bg-article-header;
     background-position: 50% 10%;
     background-size: cover;
         > div {
@@ -145,7 +145,8 @@ border-left: 1px solid $colour-edges;
         float: left;
         clear: left;
         padding: .2em;
-        background-color: $shadow-colour;
+        color: $colour-article-header-text;
+        background-color: $colour-bg-article-header-text;
         }
             h1 {
             margin: 0;
